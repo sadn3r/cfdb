@@ -1,9 +1,22 @@
 {
-	"name": "CF/Db",
-	"version": "1.0.0",
+    "name": "cf/db",
+    "description": "db wrapper mysqli",
+    "version": "1.0.0",
+    "keywords": ["db", "mysqli"],
+    "homepage": "https://bitbucket.org/sadn3r/cfdb.git",
+    "time": "2021-05-07",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Vyacheslav Petukhov",
+            "email": "sadn3r@gmail.com",
+            "homepage": "https://bitbucket.org/sadn3r/",
+            "role": "Developer"
+        }
+    ],
     "autoload": {
-        "psr-4": {"CF\\Db": "src/"}
+        "psr-4": {"CF\\Db\\": "src/"}
     },
-    "require": {
+    "require-dev": {
     }
 }
