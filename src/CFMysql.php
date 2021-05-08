@@ -19,4 +19,24 @@ class CFMysql extends mysqli {
 
 		return $this->query($new_statement);
 	}
+
+	public function insert(string $table, array $data = []): int
+	{
+		$_row_n	= [];
+		$_row_v	= [];
+
+		foreach ($data as $row => $value) {
+			$_row_n[]	= '`'.$row.'`';
+			$_row_v[]	= "'".$this->escape_string($value)."'";
+		}
+
+		$sql = "
+		INSERT INTO `$table`(".join(',', $_row_n).") VALUES(
+			".join(',', $_row_v)."
+		)";
+
+		$r = $this->query($sql);
+
+		return $this->insert_id;
+	}
 }
