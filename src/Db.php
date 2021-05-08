@@ -7,11 +7,11 @@ class Db {
 	private static $_instance;
 	private $db;
 
-	private function __construct(/*CFMysql*/ $db) {
+	private function __construct(CFMysql $db) {
 		$this->db = $db;
 	}
 
-	public static function instance(/*CFMysql*/ $db) {
+	public static function instance(CFMysql $db) {
 		if(is_null(self::$_instance)) {
 			self::$_instance = new self($db);
 		}
