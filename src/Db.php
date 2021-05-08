@@ -2,22 +2,30 @@
 namespace CF\Db;
 use mysqli;
 
-class Db extends mysqli {
+class Db {
 
-	public function exec(string $sql, array $data = null) {
-		$new_statement = preg_replace_callback('/([i|s])\:([a-z\_]+)/ui', function($matches) use ($data) {
+	private static $_instance;
+	private $db;
 
-			switch ($matches[1]) {
-				case 'i':
-					return (int)$data[$matches[2]];
-				break;
-				case 's':
-					return $this->escape_string($data[$matches[2]]);
-				break;
-			}
-
-		}, $sql);
-
-		return $this->query($new_statement);
+	private function __construct(/*CFMysql*/ $db) {
+		$this->db = $db;
 	}
+
+	public static function instance(/*CFMysql*/ $db) {
+		if(is_null(self::$_instance)) {
+			self::$_instance = new self($db);
+		}
+
+		return self::$_instance;
+	}
+
+	public function __call(string $methodName, array $args) {
+		return call_user_func_array(array($this::$_instance->db, $methodName), $args);
+	}
+
+	
+	public static function __callStatic(string $methodName, array $args) {
+		return call_user_func_array(array(self::$_instance->db, $methodName), $args);
+	}
+
 }
