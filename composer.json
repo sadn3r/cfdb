@@ -1,7 +1,7 @@
 {
     "name": "cf/db",
     "description": "db wrapper mysqli",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": ["db", "mysqli"],
     "homepage": "https://bitbucket.org/sadn3r/cfdb.git",
     "time": "2021-05-07",
