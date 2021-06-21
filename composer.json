@@ -17,6 +17,10 @@
     "autoload": {
         "psr-4": {"CF\\Db\\": "src/"}
     },
+    "require": {
+        "ramsey/uuid": "^3.9",
+        "moontoast/math": "^1.2"
+    },
     "require-dev": {
     }
 }
