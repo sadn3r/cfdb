@@ -24,7 +24,7 @@ class Db {
 		));
 	}
 
-	public function gadads()
+	public function uuid4()
 	{
 		return $this->uuidFactory->uuid4();
 	}
