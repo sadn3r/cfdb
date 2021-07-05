@@ -4,7 +4,7 @@ use mysqli;
 
 class CFMysql extends mysqli {
 	public function exec(string $sql, array $data = null) {
-		$new_statement = preg_replace_callback('/([i|s])\:([a-z\_]+)/ui', function($matches) use ($data) {
+		$new_statement = preg_replace_callback('/([i|s])\:([a-z0-9\_]+)/ui', function($matches) use ($data) {
 
 			switch ($matches[1]) {
 				case 'i':
