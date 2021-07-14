@@ -40,6 +40,11 @@ class Db {
 		return self::$_instance;
 	}
 
+    public function __get(string $param)
+    {
+        return $this::$_instance->db->$param;
+    }
+    
 	public function __call(string $methodName, array $args)
 	{
 		return call_user_func_array(array($this::$_instance->db, $methodName), $args);
