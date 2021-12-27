@@ -1,42 +1,37 @@
 <?php
+
 namespace CF\Db;
+
 use mysqli;
+use mysqli_result;
 
-class CFMysql extends mysqli {
-	public function exec(string $sql, array $data = null) {
-		$new_statement = preg_replace_callback('/([i|s])\:([a-z0-9\_]+)/ui', function($matches) use ($data) {
+class CFMysql extends mysqli
+{
+    public function exec(string $sql, array $data = null): mysqli_result|bool
+    {
+        return $this->query(preg_replace_callback(pattern: '/(?P<type>[i|s]):(?P<value>[a-z0-9_]+)/ui', callback: fn($matches) => match ($matches['type']) {
+            'i' => (int)$data[$matches['value']],
+            's' => $this->escape_string($data[$matches['value']]),
+        }, subject: $sql));
+    }
 
-			switch ($matches[1]) {
-				case 'i':
-					return (int)$data[$matches[2]];
-				break;
-				case 's':
-					return $this->escape_string($data[$matches[2]]);
-				break;
-			}
+    public function insert(string $table, array $data = []): int
+    {
+        $_row_n = [];
+        $_row_v = [];
 
-		}, $sql);
+        foreach ($data as $row => $value) {
+            $_row_n[] = '`' . $row . '`';
+            $_row_v[] = "'" . $this->escape_string($value) . "'";
+        }
 
-		return $this->query($new_statement);
-	}
-
-	public function insert(string $table, array $data = []): int
-	{
-		$_row_n	= [];
-		$_row_v	= [];
-
-		foreach ($data as $row => $value) {
-			$_row_n[]	= '`'.$row.'`';
-			$_row_v[]	= "'".$this->escape_string($value)."'";
-		}
-
-		$sql = "
-		INSERT INTO `$table`(".join(',', $_row_n).") VALUES(
-			".join(',', $_row_v)."
+        $sql = "
+		INSERT INTO `$table`(" . join(',', $_row_n) . ") VALUES(
+			" . join(',', $_row_v) . "
 		)";
 
-		$r = $this->query($sql);
+        $this->query($sql);
 
-		return $this->insert_id;
-	}
+        return $this->insert_id;
+    }
 }

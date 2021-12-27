@@ -1,16 +1,16 @@
 {
     "name": "cf/db",
     "description": "db wrapper mysqli",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "keywords": ["db", "mysqli"],
-    "homepage": "https://bitbucket.org/sadn3r/cfdb.git",
+    "homepage": "https://github.com/sadn3r/cfdb",
     "time": "2021-05-07",
     "license": "proprietary",
     "authors": [
         {
             "name": "Vyacheslav Petukhov",
             "email": "sadn3r@gmail.com",
-            "homepage": "https://bitbucket.org/sadn3r/",
+            "homepage": "https://github.com/sadn3r",
             "role": "Developer"
         }
     ],
@@ -19,7 +19,8 @@
     },
     "require": {
         "ramsey/uuid": "^3.9",
-        "moontoast/math": "^1.2"
+        "moontoast/math": "^1.2",
+        "ext-mysqli": "*"
     },
     "require-dev": {
     }
